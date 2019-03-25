@@ -5,35 +5,40 @@
 %\usetikzlibrary{patterns}
 \begin{document}
 \begin{tikzpicture}[remember picture, overlay]
-\draw (current page.north west) coordinate (A1)
-++(down:1.918in) edge[dashed, -] 
-node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
-++(down:{sqrt(0.5^2+1.918^2)*1in}) coordinate (B1) edge[dashed, -] 
-node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
-++(down:1in) edge[dashed, -] 
-node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
-++(down:1in) edge[dashed, -] 
-node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
-++(down:{1.5*pi/4*1in}) edge[dashed, -] 
-node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
-++(down:0.5in) coordinate (B2) edge[-] ++(right:8.5in)
-++(down:1in) edge[-] ++(right:8.5in)
-++(down:0.5in) coordinate (A2) edge[dashed, -] 
-node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
-++(down:1.918in) edge[-] ++(right:8.5in)
-;
-\fill[color=black!5!] (A1) rectangle ++(8.5in,-1.918in);
-\fill[color=black!5!] (B1) rectangle ++(8.5in,-1in);
-\fill[color=black!5!] (B2) rectangle ++(8.5in,-1in);
-\fill[color=black!5!] (A2) rectangle ++(8.5in,-1.918in);
+\draw (current page.north west) coordinate (1)
+	++(down:1.918in) coordinate (2)
+	++(down:{sqrt(0.5^2+1.918^2)*1in}) coordinate (3)
+	++(down:1in) coordinate (4)
+	++(down:1in) coordinate (5)
+	++(down:{1.5*pi/4*1in}) coordinate (6)
+	++(down:0.5in) coordinate (7) 
+	++(down:1in) coordinate (8)
+	++(down:0.5in) coordinate (9)
+	++(down:1.918in) coordinate (10)
+	;
+\draw 
+	(1) edge[dashed, -] node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
+	(2) edge[dashed, -] node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
+	(3) edge[dashed, -] node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
+	(4) edge[dashed, -] node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
+	(5) edge[dashed, -] node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
+	(6) edge[-] ++(right:8.5in)
+	(7) edge[-] ++(right:8.5in)
+	(8) edge[dashed, -] node[pos=0.1, fill=white] {fold} node[pos=0.9, fill=white] {fold} ++(right:8.5in)
+	(9) edge[-] ++(right:8.5in)
+	;
+\fill[color=black!5!] (1) rectangle ++(8.5in,-1.918in);
+\fill[color=black!5!] (3) rectangle ++(8.5in,-1in);
+\fill[color=black!5!] (4) rectangle ++(8.5in,-1in);
+\fill[color=black!5!] (9) rectangle ++(8.5in,-1.918in);
 \draw
-(A1) ++(0.85in, -1/2*1.918in) 
+(1) ++(0.85in, -1/2*1.918in) 
 node {staple A} ++(right:0.8*8.5in) node {staple A}
-(B1) ++(0.85in, -1/2*1in) 
+(3) ++(0.85in, -1/2*1in) 
 node {staple B} ++(right:0.8*8.5in) node {staple B}
-(B2) ++(0.85in, -1/2*1in) 
+(7) ++(0.85in, -1/2*1in) 
 node {staple B} ++(right:0.8*8.5in) node {staple B}
-(A2) ++(0.85in, -1/2*1.918in) 
+(9) ++(0.85in, -1/2*1.918in) 
 node {staple A} ++(right:0.8*8.5in) node {staple A}
 ;
 \end{tikzpicture}
