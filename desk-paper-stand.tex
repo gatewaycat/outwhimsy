@@ -35,11 +35,11 @@
 	\draw (\n) edge[dashed, -] node[pos=0.1] {fold} node[pos=0.9] {fold} ++(right:8.5in);
 \foreach \n in {6, 7} 
 	\draw (\n) edge[-] ++(right:8.5in);
-\foreach \n/\i in {0/A, 1/\diagram,2/B, 6/B, 8/A}
+\foreach \n/\i/\j in {0/A/staple, 1/\diagram/{}, 2/B/staple, 6/B/staple, 8/A/staple}
 	\draw (\n) ++(down:1/2*\ylist[\n]*1in)
-		++(right:0.1*8.5in) node {staple}
+		++(right:0.1*8.5in) node {\j}
 		++(right:0.4*8.5in) node {\scalebox{4}{\i}}
-		++(right:0.4*8.5in) node {staple}
+		++(right:0.4*8.5in) node {\j}
 		;
 \end{tikzpicture}
 \end{document}
