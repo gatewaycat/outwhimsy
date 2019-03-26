@@ -1,10 +1,25 @@
+%%%%%%%%%%%%%%%%%%%%
+% Typeset twice to get positioning right.
+%%%%%%%%%%%%%%%%%%%%
+
 \RequirePackage{luatex85}
 \documentclass[letterpaper]{article}
 \thispagestyle{empty}
 \usepackage{tikz}
 %\usetikzlibrary{patterns}
-\begin{document}
+
 \def\ylist{{1.918, {sqrt(0.5^2+1.918^2)}, 1, 1, {1.5*pi/4}, 0.5, 1, 0.5, 1.918}}
+\newcommand\diagram{\begin{tikzpicture}[scale=0.5]
+	\draw (0,0) 
+	-- node[pos=0.4, left, inner sep=0.2mm]{\tiny A} ++(up:\ylist[0]) 
+	--++(-69:\ylist[1]) 
+	-- node[above, inner sep=0.2mm]{\tiny B} ++(right:\ylist[2]) 
+	--++(up:\ylist[3]) --++(-70:\ylist[4]) 
+	--++(left:\ylist[5]+\ylist[6]+\ylist[7]) 
+	--++(up:\ylist[8]*0.75cm);
+	\end{tikzpicture}}
+
+\begin{document}
 \sf
 \begin{tikzpicture}[remember picture, overlay]
 \draw (current page.north west) coordinate (0);
@@ -20,7 +35,7 @@
 	\draw (\n) edge[dashed, -] node[pos=0.1] {fold} node[pos=0.9] {fold} ++(right:8.5in);
 \foreach \n in {6, 7} 
 	\draw (\n) edge[-] ++(right:8.5in);
-\foreach \n/\i in {0/A, 2/B, 6/B, 8/A}
+\foreach \n/\i in {0/A, 1/\diagram,2/B, 6/B, 8/A}
 	\draw (\n) ++(down:1/2*\ylist[\n]*1in)
 		++(right:0.1*8.5in) node {staple}
 		++(right:0.4*8.5in) node {\scalebox{4}{\i}}
