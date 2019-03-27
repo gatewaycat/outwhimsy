@@ -1,0 +1,29 @@
+\RequirePackage{luatex85}
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[margin=0.2in]{geometry}
+\begin{document}
+\centering
+\def\numberofcolumns{21}
+\def\numberofrows{31}
+\begin{tikzpicture}[ultra thick, scale=0.25]
+\pgfmathtruncatemacro{\nmax}{\numberofcolumns*\numberofrows-1}
+\foreach \n in {0,...,\nmax}{
+\draw ({mod(\n,\numberofcolumns)*3.95cm},{-floor(\n/\numberofcolumns)*3.48cm}) coordinate (temp);
+\foreach \e in {0,...,5}{
+\pgfmathtruncatemacro{\temp}{mod(floor(mod(\n,64)/2^\e),2)}
+	\draw (temp) ++(up:0.25) coordinate (temp);
+	\ifnum\temp=0 \draw (temp) -- ++(right:1) ++(right:1) -- ++(right:1);
+	\else \draw (temp) -- ++(right:3); \fi
+	\draw (temp) ++(up:0.25) coordinate (temp);
+	}
+}
+\end{tikzpicture}
+\end{document}
+
+%% BASED ON THIS decimal-binary conversion
+for n in range(64):
+	for i in range(5):
+		print(n%2, end='')
+		n = n//2
+	print()
