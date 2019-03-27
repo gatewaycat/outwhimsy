@@ -1,35 +1,12 @@
+%%%%%%%%%%%%%%%%%%%%
+% TYPESET twice to get positioning right
+%%%%%%%%%%%%%%%%%%%%
 \documentclass{article}
-\usepackage{pgfplots, ifthen, amsmath}
+\usepackage{pgfplots, ifthen, amsmath, stix}
 \pgfplotsset{compat=1.13}
 \thispagestyle{empty}
 \pagestyle{empty}
 
-\newcounter{card}
-\newcommand\card[1]{
-% page break every 9 cards
-\ifthenelse{\equal{\arabic{card}}{9}}{\newpage\setcounter{card}0}{}
-\begin{tikzpicture}
-		[remember picture, overlay]
-	% position 3x3 cards to a page
-	\draw (current page.north west)
-		++({(floor(\arabic{card}/3)+0.5)*1/3*8.5in},
-			{(mod(\arabic{card},3)+0.5)*-1/3*11in})
-		coordinate (center);
-	% position content on given card
-	\foreach \content/\x/\y/\scale/\angle in {#1}{
-		\edef\temp{\noexpand\draw (center) ++(\x*1/3*8.5in,\y*1/3*11in) node[rotate=\angle] {\noexpand\scalebox{\scale}{$\content$}};}
-		\temp
-		}
-	% cut guides
-	\foreach \x/\y in {1/1, 1/-1, -1/1, -1/-1}
-	\draw[gray] (center) ++(\x*1/2*1/3*8.5in, \y*1/2*1/3*11in)
-		edge[-] ++(left:8mm)
-		edge[-] ++(right:8mm)
-		edge[-] ++(up:8mm)
-		edge[-] ++(down:8mm);
-	\end{tikzpicture}
-	\stepcounter{card}
-	}
 \newcommand\suitwrap[1]{\begin{tikzpicture}[scale=0.06]
 	#1
 	\end{tikzpicture}}
@@ -47,7 +24,6 @@
 		edge[-] ++(right:1.9)
 		;
 	}}
-
 \newcommand\apple{\suitwrap{
 %	\draw[smooth] plot coordinates {(0,2) (0.5, 3) (1,3) (0,0)};
 %	\draw (0,2) edge[-, looseness=1, out=40, in=90] (0,0);
@@ -73,124 +49,101 @@
 		;
 %% TODO: convert to a cycle with rounded corners
 %% maybe define some coordinates
+%% NOTE: "\renewcomand\square" because stix.sty
 	}}
-\newcommand\square{\suitwrap{\fill[bend left=30] (0,2.5) to (-2,0) to (-1,-2.5) to (1,-2.5) to (2,0) to cycle;}}
+\renewcommand\square{\suitwrap{\fill[bend left=30] 
+	(0,2.5) to (-2,0) to (-1,-2.5) to (1,-2.5) to (2,0) to cycle;}}
 \newcommand\chao{\suitwrap{\fill circle (2cm);}}
 
-\newcommand\one{\color{\suitcolor}\card{
-	\noexpand\suit/0/0/10/0, 
-	1/0.4/0.4/3/0, 
-	\noexpand\suit/0.4/0.3/3/0,
-	\text A/-0.4/-0.4/3/180, 
-	\noexpand\suit/-0.4/-0.3/3/180
-%	\text{ONE \noexpand\uppercase{BLACK} \noexpand\uppercase{\suitname}}/0/0.4/1/0,
-%	\text{\noexpand\uppercase{\suitcolor} ACE of \noexpand\uppercase{\suitname}S}/0/-0.4/1/180
+\newcounter{card}
+\newcommand\card[1]{
+%% switch black/red
+\color{\suitcolor}
+%% page break every 9 cards
+\ifthenelse{\equal{\arabic{card}}{9}}{\newpage\setcounter{card}0}{}
+\begin{tikzpicture}
+		[remember picture, overlay]
+	%% position 3x3 cards to a page
+	\draw (current page.north west)
+		++({(mod(\arabic{card},3)+0.5)*1/3*8.5in},
+			{(floor(\arabic{card}/3)+0.5)*-1/3*11in})
+		coordinate (center);
+	%% position content on given card
+	\foreach \content/\x/\y/\scale/\angle in {#1}{
+		\edef\temp{\noexpand\draw (center) ++(\x*1/3*8.5in,\y*1/3*11in)
+		node[rotate=\angle] {\noexpand\scalebox{\scale}{$\content$}};}
+		\temp
+		}
+	%% cut guides
+	\foreach \x/\y in {1/1, 1/-1, -1/1, -1/-1}
+	\draw[gray] (center) ++(\x*1/2*1/3*8.5in, \y*1/2*1/3*11in)
+		edge[-] ++(left:8mm)
+		edge[-] ++(right:8mm)
+		edge[-] ++(up:8mm)
+		edge[-] ++(down:8mm);
+	\end{tikzpicture}
+	\stepcounter{card}
+	}
+%% position content common to all 5 card numbers
+\newcommand\pipcard[6]{\card{#6,
+	#1/0.35/0.4/3/0, \text #2/-0.35/-0.4/3/180,
+	\noexpand\suit/0.35/0.3/3/0,
+	\noexpand\suit/-0.35/-0.3/3/180,
+	\text{\noexpand\uppercase{#3{} \suitcolor{} \suitname #5}}/-0.4/0.2/1/90,
+	\text{\noexpand\uppercase{\suitcolor{} #4{} of{} \suitname S}}/0.4/-0.2/1/270
 	}}
-\newcommand\two{\color{\suitcolor}\card{
-	\noexpand\suit/0/0.25/5/0, 
-	\noexpand\suit/0/-0.25/5/180,
-	2/0.4/0.4/3/0, 
-	\text J/-0.4/-0.4/3/180, 
-	\noexpand\suit/0.4/0.3/3/0,
-	\noexpand\suit/-0.4/-0.3/3/180
-%	\text{TWO \noexpand\uppercase{\suitcolor} \noexpand\uppercase{\suitname}S}/0/0.4/1/0,
-%	\text{\noexpand\uppercase{\suitcolor} JACK of \noexpand\uppercase{\suitname}S}/0/-0.4/1/180
+\newcommand\one{\pipcard 1A{one}{ace}{}{
+	\noexpand\suit/0/0/10/0
 	}}
-\newcommand\three{\color{\suitcolor}\card{
-	\noexpand\suit/0/0.25/5/0, 
-	\noexpand\suit/0/-0.25/5/180,
-	\noexpand\suit/0/0/5/0,
-	3/0.4/0.4/3/0, 
-	\text C/-0.4/-0.4/3/180, 
-	\noexpand\suit/0.4/0.3/3/0,
-	\noexpand\suit/-0.4/-0.3/3/180
-%	\text{THREE \noexpand\uppercase{\suitcolor} \noexpand\uppercase{\suitname}S}/0/0.4/1/0,
-%	\text{\noexpand\uppercase{\suitcolor} KNIGHT of \noexpand\uppercase{\suitname}S}/0/-0.4/1/180
+\newcommand\two{\pipcard 2J{two}{jack}s{
+	\noexpand\suit/0/0.35/5/0, 
+	\noexpand\suit/0/-0.35/5/180
 	}}
-\newcommand\four{\color{\suitcolor}\card{
-	\noexpand\suit/0.125/0.25/5/0, 
-	\noexpand\suit/-0.125/0.25/5/0, 
-	\noexpand\suit/0.125/-0.25/5/180,
-	\noexpand\suit/-0.125/-0.25/5/180,
-	4/0.4/0.4/3/0, 
-	\text Q/-0.4/-0.4/3/180, 
-	\noexpand\suit/0.4/0.3/3/0,
-	\noexpand\suit/-0.4/-0.3/3/180
-%	\text{FOUR \noexpand\uppercase{\suitcolor} \noexpand\uppercase{\suitname}S}/0/0.4/1/0,
-%	\text{\noexpand\uppercase{\suitcolor} QUEEN of \noexpand\uppercase{\suitname}S}/0/-0.4/1/180
+\newcommand\three{\pipcard 3C{three}{knight}s{
+	\noexpand\suit/0/0.35/5/0, 
+	\noexpand\suit/0/-0.35/5/180,
+	\noexpand\suit/0/0/5/0
 	}}
-\newcommand\five{\color{\suitcolor}\card{
-	\noexpand\suit/0.125/0.25/5/0, 
-	\noexpand\suit/-0.125/0.25/5/0, 
-	\noexpand\suit/0.125/-0.25/5/180,
-	\noexpand\suit/-0.125/-0.25/5/180,
-	\noexpand\suit/0/0/5/180,
-	5/0.4/0.4/3/0, 
-	\text K/-0.4/-0.4/3/180, 
-	\noexpand\suit/0.4/0.3/3/0,
-	\noexpand\suit/-0.4/-0.3/3/180
-%	\text{FIVE \noexpand\uppercase{\suitcolor} \noexpand\uppercase{\suitname}S}/0/0.4/1/0,
-%	\text{\noexpand\uppercase{\suitcolor} KING of \suitname{}S}/0/-0.4/1/180
+\newcommand\four{\pipcard 4Q{four}{queen}s{
+	\noexpand\suit/0.125/0.35/5/0, 
+	\noexpand\suit/-0.125/0.35/5/0, 
+	\noexpand\suit/0.125/-0.35/5/180,
+	\noexpand\suit/-0.125/-0.35/5/180
 	}}
-\newcommand\hodge{\card{}} % index says H//O//D//G//E; pentagon; cards 26, 53
-\newcommand\podge{\card{}} % pentagon; cards 27, 54
+\newcommand\five{\pipcard 5K{five}{king}s{
+	\noexpand\suit/0.125/0.35/5/0, 
+	\noexpand\suit/-0.125/0.35/5/0, 
+	\noexpand\suit/0.125/-0.35/5/180,
+	\noexpand\suit/-0.125/-0.35/5/180,
+	\noexpand\suit/0/0/5/180
+	}}
+\newcommand\hodgepodge[1]{\color{\suitcolor}\card{
+	\noexpand\rightpentagonblack/0/0/10/0,
+	\text #1/0.4/0.4/3/0,
+	\text O/0.4/0.3/3/0,
+	\text D/0.4/0.2/3/0,
+	\text G/0.4/0.1/3/0,
+	\text E/0.4/0/3/0,
+	\text #1/-0.4/-0.4/3/180,
+	\text O/-0.4/-0.3/3/180,
+	\text D/-0.4/-0.2/3/180,
+	\text G/-0.4/-0.1/3/180,
+	\text E/-0.4/-0/3/180
+	}}
 
 \begin{document}
-\newcommand\suitcolor{black}
-
-\newcommand\suit\hand
-\newcommand\suitname{hand}
-\one\two\three\four\five
-
-\renewcommand\suit\apple
-\renewcommand\suitname{apple}
-\one\two\three\four\five
-
-\renewcommand\suit\clover
-\renewcommand\suitname{clover}
-\one\two\three\four\five
-
-\renewcommand\suit\square
-\renewcommand\suitname{square}
-\one\two\three\four\five
-
-\renewcommand\suit\chao
-\renewcommand\suitname{chao}
-\one\two\three\four\five
-
-\hodge\podge
-
-\renewcommand\suitcolor{red}
-\renewcommand\suit\hand
-\renewcommand\suitname{hand}
-\one\two\three\four\five
-
-\renewcommand\suit\apple
-\renewcommand\suitname{apple}
-\one\two\three\four\five
-
-\renewcommand\suit\clover
-\renewcommand\suitname{clover}
-\one\two\three\four\five
-
-\renewcommand\suit\square
-\renewcommand\suitname{square}
-\one\two\three\four\five
-
-\renewcommand\suit\chao
-\renewcommand\suitname{chao}
-\one\two\three\four\five
-
-\hodge\podge
+\foreach \a in {black, red}{
+	\newcommand\suitcolor{\a}
+	\foreach \b/\c in {\hand/hand, \apple/apple, \clover/clover,
+			\square/square, \chao/chao}{
+		\newcommand\suit\b
+		\newcommand\suitname\c
+		\one\two\three\four\five
+		}
+	\hodgepodge H \hodgepodge P
+	}
 \end{document}
 
-%Bridge size 3.5x2.25 = 88.9x57.15
-%Poker size 3.5x2.5 = 88.9x63.50
-% a7 = 	74x105
-% b8 = 62x88
-% a8 = 	52x74
-% letter = 216x279
-% legal = 216x356
 
 %%%%%%%%%%%%%%%
 % REFERENCES
@@ -200,3 +153,10 @@ https://www.wolfram.com/mathematica/new-in-10/basic-and-formula-regions/implicit
 https://calcplot3dblog.wordpress.com/2016/02/10/parametric-heart/
 https://beta.grafiti.io/facts/238272
 https://www.google.com/search?rlz=1C5CHFA_enUS724NZ725&biw=973&bih=550&tbm=isch&sa=1&ei=2ayPXI-bMsaUtQWDxZ_wAg&q=draw+clubs+suit+tikz&oq=draw+clubs+suit+tikz&gs_l=img.3...5092.5585..6332...0.0..0.79.381.5......1....1..gws-wiz-img.Cqz39ojok3w#imgdii=Y59nN_kQ464fFM:&imgrc=V9TYA4cY7JzlUM:
+Bridge size 3.5x2.25 = 88.9x57.15
+Poker size 3.5x2.5 = 88.9x63.50
+a7 = 	74x105
+b8 = 62x88
+a8 = 	52x74
+letter = 216x279
+legal = 216x356
