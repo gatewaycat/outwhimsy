@@ -10,12 +10,11 @@
 
 \def\ylist{{1.918, {sqrt(0.5^2+1.918^2)}, 1, 1, {1.5*pi/4}, 0.5, 1, 0.5, 1.918}}
 \newcommand\diagram{\begin{tikzpicture}[scale=0.5]
-	\draw (0,0)
+	\draw[rounded corners=1] (0,0)
 	-- node[pos=0.4, left, inner sep=0.2mm]{\tiny A} ++(up:\ylist[0])
 	--++(-69:\ylist[1])
 	-- node[above, inner sep=0.2mm]{\tiny B} ++(right:\ylist[2])
-	--++(up:\ylist[3]) coordinate (temp)
-	(temp) edge[-, bend left] ++(-70:\ylist[4]) ++(-70:\ylist[4])
+	--++(up:\ylist[3]) to[bend left=20] ++(-70:\ylist[4])
 	--++(left:\ylist[5]+\ylist[6]+\ylist[7])
 	--++(up:\ylist[8]*0.75cm);
 	\end{tikzpicture}}
