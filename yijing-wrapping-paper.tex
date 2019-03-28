@@ -5,13 +5,18 @@
 \pgfmathtruncatemacro\numbars{\numsecs*\numcols*\numrows*6}
 \clip (0,0) rectangle (8.5in,11in);
 \foreach \n in {0,...,\numbars} {
-	\draw ({\leftmargin + mod(floor(\n/6),\numcols)*(\xsep + \barlen)}, {
+    \pgfmathtruncatemacro\bar{mod(\n,6)}
+    \pgfmathtruncatemacro\hexagram{floor(\n/6)}
+    \pgfmathtruncatemacro\i{mod(\hexagram,\numcols)}
+    \pgfmathtruncatemacro\j{mod(floor(\hexagram/\numcols),\numrows)}
+    \pgfmathtruncatemacro\k{floor(\hexagram/\numcols/\numrows)}
+	\draw ({\leftmargin + \i*(\xsep + \barlen)}, {
 		\botmargin + 0.5*\barwidth
-		+ mod(\n,6)*(\barwidth +\barsep)
-		+ mod(floor(\n/6/\numcols),\numrows)*(\barwidth*6 +\barsep*5+\ysep)
-		+ floor(\n/6/\numcols/\numrows)*11in/\numsecs
+		+ \bar*(\barwidth +\barsep)
+		+ \j*(\barwidth*6 +\barsep*5+\ysep)
+		+ \k*11in/\numsecs
 		}) coordinate (xy);
-	\pgfmathtruncatemacro\barval{mod(floor(mod(floor(\n/6),64)/2^mod(\n,6)),2)}
+	\pgfmathtruncatemacro\barval{mod(floor(mod(\hexagram,64)/2^\bar),2)}
 	\ifnum\barval=0
 	\draw (xy) -- ++(right:0.1in) ++(right:0.1in) -- ++(right:0.1in);
 	\else
