@@ -3,14 +3,18 @@
 \begin{document}
 \begin{tikzpicture}[line width=0.03in]
 \clip (0,0) rectangle (8.5in,11in);
-\foreach \row in {0,...,2}{
-\foreach \col in {0,...,2}{
+\foreach \row in {0,...,2}{ % 25 = \numrows-1
+\foreach \col in {0,...,2}{ % 19 = \numcols-1
 \foreach \bar in {0,...,5}{
-\draw ({0.35in+\col*0.4in}, {0.365in+\bar*0.039in+\row*0.4in}) coordinate (xy);
-\pgfmathtruncatemacro\barval{mod(floor(mod(\col+20*\row,64)/2^\bar),2)}
-\ifnum\barval=0
-\draw (xy) -- ++(right:0.1in) ++(right:0.1in) -- ++(right:0.1in);
-\else\draw (xy) -- ++(right:0.3in);\fi
-}}}
+	% 0.4in = \xsep+\barlen
+	% 0.365in = \bottommargin + 0.5*\barwidth
+	% 0.039in = \barwidth + \barsep
+	% 0.4in = 6*\barwidth + 5*\barsep + \ysep
+	\draw ({0.35in+\col*0.4in}, {0.365in+\bar*0.039in+\row*0.4in}) coordinate (xy);
+	\pgfmathtruncatemacro\barval{mod(floor(mod(\col+20*\row,64)/2^\bar),2)}
+	\ifnum\barval=0
+	\draw (xy) -- ++(right:0.1in) ++(right:0.1in) -- ++(right:0.1in);
+	\else\draw (xy) -- ++(right:0.3in);\fi
+	}}}
 \end{tikzpicture}
 \end{document}
