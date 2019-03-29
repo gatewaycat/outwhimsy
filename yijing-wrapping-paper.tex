@@ -1,12 +1,13 @@
-%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTE. It takes a good minute to typeset
-%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{luatex85}
 \documentclass[tikz]{standalone}
 \usepackage{expl3}
 \ExplSyntaxOn
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
+
 \begin{document}
 \Repeat{2}{
 \begin{tikzpicture}
@@ -55,7 +56,8 @@ mod(floor(mod(\col+20*\row+520*\sec,64)/2^\bar),2)}
 % GENERATE TIKZ CODE
 %%%%%%%%%%%%%%%
 def tikzhexagrams(numsecs, numrows, numcols, 
-		leftmargin, botmargin, barwidth, barlen, barsep, xsep, ysep):
+		leftmargin, barlen, xsep,
+		botmargin, barwidth, barsep, ysep):
 	print("\\begin{tikzpicture}")
 	print(f"[line width={barwidth:0.3f}in]")
 	print("\\clip (0,0) rectangle (8.5in,11in);")
@@ -81,7 +83,7 @@ def tikzhexagrams(numsecs, numrows, numcols,
 	print("%\draw[step=0.1in, thin] (0,0) grid (8.5in,11in);")
 	print("\\end{tikzpicture}")
 
-tikzhexagrams(5, 4, 20, 0.3, 0.35, 0.03, 0.3, 0.024, 0.1, 0.1)
-tikzhexagrams(1, 26, 20, 0.3, 0.35, 0.03, 0.3, 0.024, 0.1, 0.1)
-#tikzhexagrams(5, 5, 21, 0.2, 0.2, 0.03, 0.3, 0.024, 0.09, 0.075)
-#tikzhexagrams(5, 5, 20, 0.3, 0.3, 0.02, 0.3, 0.02, 0.1, 0.125)
+tikzhexagrams(5, 4, 20,   0.3, 0.3, 0.1,   0.35, 0.03, 0.024, 0.1)
+tikzhexagrams(1, 26, 20,   0.3, 0.3, 0.1,   0.35, 0.03, 0.024, 0.1)
+#tikzhexagrams(5, 5, 21,   0.2, 0.3, 0.09,   0.2, 0.03 0.024, 0.075)
+#tikzhexagrams(5, 5, 20,   0.3, 0.3, 0.1,   0.3, 0.02, 0.02, 0.125)
