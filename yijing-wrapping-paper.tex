@@ -1,80 +1,16 @@
 \RequirePackage{luatex85}
 \documentclass[tikz]{standalone}
-\newcommand\content{
-\begin{tikzpicture}[line width=\barwidth]
-\pgfmathtruncatemacro\numbars{\numsecs*\numcols*\numrows*6}
-\clip (0,0) rectangle (8.5in,11in);
-\foreach \n in {0,...,\numbars} {
-    \pgfmathtruncatemacro\bar{mod(\n,6)}
-    \pgfmathtruncatemacro\hexagram{floor(\n/6)}
-    \pgfmathtruncatemacro\i{mod(\hexagram,\numcols)}
-    \pgfmathtruncatemacro\j{mod(floor(\hexagram/\numcols),\numrows)}
-    \pgfmathtruncatemacro\k{floor(\hexagram/\numcols/\numrows)}
-	\draw ({\leftmargin + \i*(\xsep + \barlen)}, {
-		\botmargin + 0.5*\barwidth
-		+ \bar*(\barwidth +\barsep)
-		+ \j*(\barwidth*6 +\barsep*5+\ysep)
-		+ \k*11in/\numsecs
-		}) coordinate (xy);
-	\pgfmathtruncatemacro\barval{mod(floor(mod(\hexagram,64)/2^\bar),2)}
-	\ifnum\barval=0
-	\draw (xy) -- ++(right:0.1in) ++(right:0.1in) -- ++(right:0.1in);
-	\else
-	\draw (xy) -- ++(right:\barlen);
-	\fi
-	}
-%\draw[step=0.1in, thin] (0,0) grid (8.5in,11in);
-\end{tikzpicture}
-}
-
 \begin{document}
-%\def\botmargin{0.3in}
-%\def\leftmargin{0.3in}
-%\def\numsecs{5}
-%\def\numcols{20}
-%\def\numrows{5}
-%\def\barlen{0.3in}
-%\def\barsep{0.02in}
-%\def\barwidth{0.02in}
-%\def\ysep{0.125in}
-%\def\xsep{0.1in}
-%\content
-
-%\def\botmargin{0.35in}
-%\def\leftmargin{0.3in}
-%\def\numsecs{5}
-%\def\numcols{20}
-%\def\numrows{4}
-%\def\barlen{0.3in}
-%\def\barsep{0.024in}
-%\def\barwidth{0.03in}
-%\def\ysep{0.1in}
-%\def\xsep{0.1in}
-%\content
-
-%\def\botmargin{0.2in}
-%\def\leftmargin{0.2in}
-%\def\numsecs{5}
-%\def\numcols{21}
-%\def\numrows{5}
-%\def\barlen{0.3in}
-%\def\xsep{0.09in}
-%\def\barwidth{0.03in}
-%\def\barsep{0.024in}
-%\def\ysep{0.075in}
-%%\def\ysep{0.0375in} % = (11in/5 - 0.2in*2 - 0.03in*5*5 - 0.03in*6*5)/4
-%\content
-
-\def\botmargin{0.35in}
-\def\leftmargin{0.3in}
-\def\numsecs{1}
-\def\numcols{20}
-\def\numrows{26}
-\def\barlen{0.3in}
-\def\xsep{0.1in}
-\def\barwidth{0.03in}
-\def\barsep{0.024in}
-\def\ysep{0.1in}
-\content
-
+\begin{tikzpicture}[line width=0.03in]
+\clip (0,0) rectangle (8.5in,11in);
+\foreach \row in {0,...,2}{
+\foreach \col in {0,...,2}{
+\foreach \bar in {0,...,5}{
+\draw ({0.35in+\col*0.4in}, {0.365in+\bar*0.039in+\row*0.4in}) coordinate (xy);
+\pgfmathtruncatemacro\barval{mod(floor(mod(\col+20*\row,64)/2^\bar),2)}
+\ifnum\barval=0
+\draw (xy) -- ++(right:0.1in) ++(right:0.1in) -- ++(right:0.1in);
+\else\draw (xy) -- ++(right:0.3in);\fi
+}}}
+\end{tikzpicture}
 \end{document}
