@@ -1,0 +1,33 @@
+\RequirePackage{luatex85}
+\documentclass[tikz]{standalone}
+\usepackage{amsmath, mathtools}
+\newcounter{angle}
+\newcommand\content[9]{
+\begin{tikzpicture}[ultra thick]
+\clip (-52mm,37mm) rectangle (52mm,-37mm) %a7paper
+node[above left] {#1};
+\draw (0,0) circle (3cm);
+\setcounter{angle}0
+\foreach \holiday in {
+	\llap{#3},
+	\llap{#4},
+	\llap{#5},
+	#6,
+	\rlap{#7},
+	\rlap{#8},
+	\rlap{#9},
+	#2
+	}
+\stepcounter{angle}
+\draw (0,0) -- (270-\arabic{angle}*45:3cm) ++ (270-\arabic{angle}*45:3mm) node {\holiday};
+\end{tikzpicture}
+}
+\begin{document}
+\content{\#WheelOfTheYear}
+	{Yule}{Imbolc}{Ostara}{Beltane}{Litha}{Lughnasadh}{Mabon}{Samhain}
+\content{\#WheelOfTheBeer}
+	{NYE}{SuperBowl}
+	{St Paddy's}{Cinco De Mayo}
+	{Fourth of July}{$\overset{\textstyle\text{International}}{\textstyle\text{Beer Day}}$}
+	{Labor Day}{Halloween}
+\end{document}
