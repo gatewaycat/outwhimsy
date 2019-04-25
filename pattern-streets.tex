@@ -1,78 +1,44 @@
-%% TODO reorder printing so that doublemultipage matches final wall-posting
-
 \RequirePackage{luatex85}
 \documentclass[tikz]{standalone}
-\usepackage{amsmath, mathtools} %% PROVIDES \text{}
-%\newcommand\mydot{\color{gray}\scalebox{2}{\normalfont.}\tiny}
-\newcommand\mydot[2]{\color{gray}#1\tiny$\smash{\mathclap{^{\hspace{1.75ex}\text{#2}}}}$}
+\usepackage{pgfmath}
 
-\usepackage{expl3}
-\ExplSyntaxOn
-\cs_new_eq:NN \Repeat \prg_replicate:nn
-\ExplSyntaxOff
+\def\x{3.000mm} \def\xskip{0.5mm} \def\xsep{16.25mm}
+\def\y{3.375mm} \def\yskip{2.25mm} \def\ysep{9mm}
 
 \newcommand\block[2]{
-	\pgfmathtruncatemacro\nextstreet{#1+2}
-	\pgfmathtruncatemacro\nextave{#2+2}
-	\draw (#2/2*0.85in,{(#1-1)/2*0.55in})
-		++(right:{(1/2+\xsquish/2)/(9+\xsquish)*0.85in}) node [rotate=90] {\scalebox{\myscale}{#1}}
-		++(right:{1/(9+\xsquish)*0.85in}) node [rotate=90] {\scalebox{\myscale}{#1}}
-		++(right:{1/(9+\xsquish)*0.85in}) node [rotate=90] {\scalebox{\myscale}{#1\mydot#21}}
-		++(right:{1/(9+\xsquish)*0.85in}) node [rotate=90] {\scalebox{\myscale}{#1\mydot#23}}
-		++(right:{1/(9+\xsquish)*0.85in}) node [rotate=90] {\scalebox{\myscale}{#1\mydot#25}}
-		++(right:{1/(9+\xsquish)*0.85in}) node [rotate=90] {\scalebox{\myscale}{#1\mydot#27}}
-		++(right:{1/(9+\xsquish)*0.85in}) node [rotate=90] {\scalebox{\myscale}{#1\mydot#29}}
-		++(right:{1/(9+\xsquish)*0.85in}) node [rotate=90] {\scalebox{\myscale}{#1}}
-		++(right:{1/(9+\xsquish)*0.85in}) node [rotate=90] {\scalebox{\myscale}{#1}}
-		;
-	\draw ({(#2/2+1)*0.85in},{((#1-1)/2+1)*0.55in})
-		++(left:{(1/2+\xsquish/2)/(9+\xsquish)*0.85in}) node [rotate=-90] {\scalebox{\myscale}{\nextstreet}}
-		++(left:{1/(9+\xsquish)*0.85in}) node [rotate=-90] {\scalebox{\myscale}{\nextstreet}}
-		++(left:{1/(9+\xsquish)*0.85in}) node [rotate=-90] {\scalebox{\myscale}{\nextstreet\mydot#28}}
-		++(left:{1/(9+\xsquish)*0.85in}) node [rotate=-90] {\scalebox{\myscale}{\nextstreet\mydot#26}}
-		++(left:{1/(9+\xsquish)*0.85in}) node [rotate=-90] {\scalebox{\myscale}{\nextstreet\mydot#24}}
-		++(left:{1/(9+\xsquish)*0.85in}) node [rotate=-90] {\scalebox{\myscale}{\nextstreet\mydot#22}}
-		++(left:{1/(9+\xsquish)*0.85in}) node [rotate=-90] {\scalebox{\myscale}{\nextstreet\mydot#20}}
-		++(left:{1/(9+\xsquish)*0.85in}) node [rotate=-90] {\scalebox{\myscale}{\nextstreet}}
-		++(left:{1/(9+\xsquish)*0.85in}) node [rotate=-90] {\scalebox{\myscale}{\nextstreet}}
-		;
-	\draw (#2/2*0.85in,{(#1-1)/2*0.55in})
-		++(up:{(1/2+\ysquish/2)/(7+\ysquish)*0.55in}) node {\scalebox{\myscale}{#2}}
-		++(up:{1/(7+\ysquish)*0.55in}) node {\scalebox{\myscale}{#2\mydot#11}}
-		++(up:{1/(7+\ysquish)*0.55in}) node {\scalebox{\myscale}{#2\mydot#13}}
-		++(up:{1/(7+\ysquish)*0.55in}) node {\scalebox{\myscale}{#2\mydot#15}}
-		++(up:{1/(7+\ysquish)*0.55in}) node {\scalebox{\myscale}{#2\mydot#17}}
-		++(up:{1/(7+\ysquish)*0.55in}) node {\scalebox{\myscale}{#2\mydot#19}}
-		++(up:{1/(7+\ysquish)*0.55in}) node {\scalebox{\myscale}{#2}}
-		;
-	\draw ({(#2/2+1)*0.85in},{((#1-1)/2+1)*0.55in})
-		++(down:{(1/2+\ysquish/2)/(7+\ysquish)*0.55in}) node [rotate=180] {\scalebox{\myscale}{\nextave}}
-		++(down:{1/(7+\ysquish)*0.55in}) node [rotate=180] {\scalebox{\myscale}{\nextave\mydot#18}}
-		++(down:{1/(7+\ysquish)*0.55in}) node [rotate=180] {\scalebox{\myscale}{\nextave\mydot#16}}
-		++(down:{1/(7+\ysquish)*0.55in}) node [rotate=180] {\scalebox{\myscale}{\nextave\mydot#14}}
-		++(down:{1/(7+\ysquish)*0.55in}) node [rotate=180] {\scalebox{\myscale}{\nextave\mydot#12}}
-		++(down:{1/(7+\ysquish)*0.55in}) node [rotate=180] {\scalebox{\myscale}{\nextave\mydot#10}}
-		++(down:{1/(7+\ysquish)*0.55in}) node [rotate=180] {\scalebox{\myscale}{\nextave}}
-		;
+	\def\a{\ifnum#1<10 0#1\else#1\fi}
+	\def\b{\ifnum#2<10 0#2\else#2\fi}
+	\pgfmathtruncatemacro\rawc{#1+2}
+	\pgfmathtruncatemacro\rawd{#2+2}
+	\def\c{\ifnum\rawc<10 0\rawc\else\rawc\fi}
+	\def\d{\ifnum\rawd<10 0\rawd\else\rawd\fi}
+	\draw (#1*\xsep,#2*\ysep)
+	node [anchor=east] {{\bfseries\a}\b9}
+	++(down:\y) node [anchor=east] {{\bfseries\a}\b7}
+	++(down:\y) node [anchor=east] {{\bfseries\a}\b5}
+	++(down:\y) node [anchor=east] {{\bfseries\a}\b3}
+	++(down:\y) node [anchor=east] {{\bfseries\a}\b1}
+	++(\xskip,-\yskip) node [anchor=west, rotate=90] {{\bfseries\b}\a1}
+	++(right:\x) node [anchor=west, rotate=90] {{\bfseries\b}\a3}
+	++(right:\x) node [anchor=west, rotate=90] {{\bfseries\b}\a5}
+	++(right:\x) node [anchor=west, rotate=90] {{\bfseries\b}\a7}
+	++(right:\x) node [anchor=west, rotate=90] {{\bfseries\b}\a9}
+	++(\xskip,\yskip) node [anchor=east, rotate=180] {{\bfseries\c}\b0}
+	++(up:\y) node [anchor=east, rotate=180] {{\bfseries\c}\b2}
+	++(up:\y) node [anchor=east, rotate=180] {{\bfseries\c}\b4}
+	++(up:\y) node [anchor=east, rotate=180] {{\bfseries\c}\b6}
+	++(up:\y) node [anchor=east, rotate=180] {{\bfseries\c}\b8}
+	++(-\xskip,\yskip) node [anchor=west, rotate=270] {{\bfseries\d}\a8}
+	++(left:\x) node [anchor=west, rotate=270] {{\bfseries\d}\a6}
+	++(left:\x) node [anchor=west, rotate=270] {{\bfseries\d}\a4}
+	++(left:\x) node [anchor=west, rotate=270] {{\bfseries\d}\a2}
+	++(left:\x) node [anchor=west, rotate=270] {{\bfseries\d}\a0}
+	;
 	}
-\def\myscale{0.62}
-\def\ysquish{0.5}
-\def\xsquish{2.75}
-
-\newcommand\content[2]{
-\begin{tikzpicture}[scale=\myscale*1.4, anchor=west, inner sep=\myscale*0.25mm*1]
-\foreach\y in {#1}{\foreach\x in {#2}{\block\x\y}}
-\end{tikzpicture}
-}
 
 \begin{document}
-\sf\footnotesize
-\content{11,13,...,31}{10,12,...,52}
-\content{11,13,...,31}{54,56,...,96}
-\content{33,35,...,53}{10,12,...,52}
-\content{33,35,...,53}{54,56,...,96}
-\content{55,57,...,75}{10,12,...,52}
-\content{55,57,...,75}{54,56,...,96}
-\content{77,79,...,97}{10,12,...,52}
-\content{77,79,...,97}{54,56,...,96}
+\footnotesize\sffamily
+\begin{tikzpicture}
+\foreach \X in {0,2,...,96}{\foreach \Y in {1,3,...,97}{\block\X\Y}}
+\end{tikzpicture}
 \end{document}
