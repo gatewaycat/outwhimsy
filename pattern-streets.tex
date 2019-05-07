@@ -1,3 +1,126 @@
+%%%%%%%%%%%%%%%
+% Even/Odd Street/Ave Street Pattern
+% aka Tube City
+%
+% TODO: add subway line
+%%%%%%%%%%%%%%%
+\RequirePackage{luatex85}
+\documentclass{amsart}
+\usepackage{tikz, mathtools, sansmathfonts}
+\usepackage[margin=0.2in, paperwidth=11in, paperheight=17in]{geometry}
+\setlength\parindent{0mm}
+%\renewcommand{\arraystretch}{1}
+
+%% vertical spacing between blocks
+\setlength\parskip{-0.2mm}
+\newcommand\mybf[1]{\mathbf{#1}}
+\newcommand\block[4]{\scalebox{0.4}{
+	$\begin{matrix}
+		\mybf{#2}#10 &
+		%% horizontal space WITHIN blocks (top row)
+		\hspace{-5.23mm}
+		\mathrlap{\smash{\rotatebox{270}{$
+			%% vertical space WITHIN blocks (top row)
+			\hspace{-2.55mm}
+			\begin{matrix}
+				\mybf{#1}#29 \\[-1.3mm]
+				\mybf{#1}#27 \\[-1.3mm]
+				\mybf{#1}#25 \\[-1.3mm]
+				\mybf{#1}#23 \\[-1.3mm]
+				\mybf{#1}#21
+				\end{matrix}
+			$}}} \\
+		\mybf{#2}#13 \\
+		\mybf{#2}#15 \\
+		\mybf{#2}#17 \\
+		\mybf{#2}#19&
+		%% horizontal space WITHIN blocks (bot row)
+		\hspace{-4.05mm}
+		\mathrlap{\smash{\rotatebox{90}{$
+			%% vertical space WITHIN blocks (top row)
+			\hspace{-0.22mm}
+			\begin{matrix}
+				\mybf{#3}#20 \\[-1.3mm]
+				\mybf{#3}#22 \\[-1.3mm]
+				\mybf{#3}#24 \\[-1.3mm]
+				\mybf{#3}#26 \\[-1.3mm]
+				\mybf{#3}#28
+				\end{matrix}
+			$}}}
+		\end{matrix}$
+	%% horizontal space WITHIN blocks (right side)
+	\hspace{12.4mm}
+	\rotatebox{180}{$\begin{matrix}
+		\mybf{#4}#18 \\
+		\mybf{#4}#16 \\
+		\mybf{#4}#14 \\
+		\mybf{#4}#12 \\
+		\mybf{#4}#10 \\[-4.7mm]
+		\end{matrix}$}
+	%% horizontal space between blocks (avenue width)
+	\hspace{-5.2mm}
+	}}
+\begin{document}
+\pagestyle{empty}
+\thispagestyle{empty}
+\centering
+\sf
+%\block{00}{00}{00}{00}\end{document}
+%\block{00}{01}{02}{03}\end{document}
+%\block{00}{03}{02}{05}
+%\block{00}{05}{02}{07}
+%\block{00}{07}{02}{09}
+%\block{00}{09}{02}{11}
+\newcommand\fiveblocks[4]{%
+	\block{#1}{#21}{#3}{#23}
+	\block{#1}{#23}{#3}{#25}
+	\block{#1}{#25}{#3}{#27}
+	\block{#1}{#27}{#3}{#29}
+	\block{#1}{#29}{#3}{#41}%
+	}%
+%\fiveblocks{00}0{02}1\end{document}
+%\fiveblocks{00}1{02}2
+%\fiveblocks{00}2{02}3
+%\fiveblocks{00}3{02}4\par
+\newcommand\twentyfiveblocks[2]{%
+	\fiveblocks{#1}0{#2}1
+	\fiveblocks{#1}1{#2}2
+	\fiveblocks{#1}2{#2}3
+	\fiveblocks{#1}3{#2}4%
+	\par
+	}%
+%\twentyfiveblocks{00}{02}\end{document}
+%\twentyfiveblocks{02}{04}
+%\twentyfiveblocks{04}{06}
+%\twentyfiveblocks{06}{08}
+%\twentyfiveblocks{08}{10}
+\newcommand\onetwentyfiveblocks[2]{%
+	\twentyfiveblocks{#10}{#12}
+	\twentyfiveblocks{#12}{#14}
+	\twentyfiveblocks{#14}{#16}
+	\twentyfiveblocks{#16}{#18}
+	\twentyfiveblocks{#18}{#20}%
+	}%
+\onetwentyfiveblocks01
+\onetwentyfiveblocks12
+\onetwentyfiveblocks23
+\onetwentyfiveblocks34
+\onetwentyfiveblocks45
+\onetwentyfiveblocks56
+\onetwentyfiveblocks67
+\onetwentyfiveblocks78
+\onetwentyfiveblocks89
+\twentyfiveblocks{90}{92}
+\twentyfiveblocks{92}{94}
+\twentyfiveblocks{94}{96}
+\twentyfiveblocks{96}{98}
+\end{document}
+
+%%%%%%%%%%%%%%%
+% OLD VERSION
+% (much longer compiling time)
+%%%%%%%%%%%%%%%
+
 \RequirePackage{luatex85}
 \documentclass[tikz]{standalone}
 \usepackage{pgfmath}
