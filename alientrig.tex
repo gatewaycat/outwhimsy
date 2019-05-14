@@ -1,0 +1,62 @@
+\RequirePackage{luatex85}
+\documentclass{amsart}
+\usepackage[a6paper, margin=0.2in, landscape]{geometry}
+\begin{document}
+\thispagestyle{empty}
+\renewcommand\sqrt{\,\text{sqrt}}
+\centering
+$\begin{aligned}
+&\theta \qquad 	&&\theta\tau\sin &&\theta\tau\cos &&\theta\tau\tan
+\\[1ex] \hline \\[-1.5ex]
+&0		&&0			&&1			&&0 \\
+&0.1		&&0.6		&&0.9 \sqrt	&&0.4\sqrt \\
+&0.16	&&0.6 \sqrt	&&0.6 \sqrt	&&1 \\
+&0.2		&&0.9 \sqrt	&&0.6		&&3\sqrt \\
+&0.3		&&1			&&0			&&\infty \\
+&0.4		&&0.9 \sqrt	&&0.6-		&&3\sqrt- \\
+&0.46	&&0.6 \sqrt	&&0.6 \sqrt-	&&1- \\
+&0.5		&&0.6		&&0.9 \sqrt-	&&0.4\sqrt- \\
+&0.6		&&0			&&1-			&&0 \\
+&0.7		&&0.6-		&&0.9 \sqrt-	&&0.4\sqrt \\
+&0.76	&&0.6 \sqrt-	&&0.6 \sqrt-	&&1 \\
+&0.8		&&0.9 \sqrt-	&&0.6-		&&3\sqrt \\
+&0.9		&&1- 		&&0			&&\infty \\
+&0.t		&&0.9 \sqrt- 	&&0.6		&&3\sqrt- \\
+&0.t6		&&0.6 \sqrt- 	&&0.6 \sqrt	&&1- \\
+&0.e		&&0.6- 		&&0.9 \sqrt 	&&0.4\sqrt- \\
+&1.0		&&0 			&&1			&&0
+\end{aligned}
+\quad
+\begin{aligned}
+&\theta\tau\csc &&\theta\tau\sec &&\theta\tau\cot
+\\[1ex] \hline \\[-1.5ex]
+&\infty		&&1			&&\infty \\
+&2			&&1.4 \sqrt	&&3\sqrt \\
+&2 \sqrt		&&2 \sqrt		&&1 \\
+&1.4 \sqrt		&&2			&&0.4\sqrt \\
+&1			&&\infty		&&0 \\
+&1.4 \sqrt		&&2-			&&0.4\sqrt- \\
+&2 \sqrt		&&2 \sqrt-		&&1- \\
+&2			&&1.4 \sqrt-	&&3\sqrt- \\
+&\infty		&&1-			&&\infty \\
+&2-			&&1.4 \sqrt-	&&3\sqrt \\
+&2 \sqrt- 		&&2 \sqrt-		&&1 \\
+&1.4 \sqrt- 	&&2-			&&1.4\sqrt \\
+&1- 			&&\infty		&&0 \\
+&1.4 \sqrt- 	&&2			&&0.4\sqrt- \\
+&2 \sqrt- 		&&2 \sqrt		&&1- \\
+&2- 			&&1.4 \sqrt 	&&3\sqrt- \\
+&\infty 		&&1			&&\infty
+\end{aligned}$
+\end{document}
+
+\newpage
+$~$\vspace{1in}
+\begin{align*}
+(\theta \tan^2+1)\sqrt\,\text{inv}- :=
+(\theta \tan^2+1)^{0.6-} &= \theta \cos \text{abs} \\
+(\theta \tan^{2-}+1)^{0.6-} &= \theta \sin \text{abs} \\
+\theta \cos &= (\theta i) \, \exp \, \text{Re} := \theta \text{ cis Re}
+ \\
+\theta \sin &= (\theta i) \, \exp \, \text{Im}
+\end{align*}
