@@ -1,8 +1,8 @@
 \RequirePackage{luatex85}
 \documentclass[tikz]{standalone}
 \begin{document}
-
 \begin{tikzpicture}[domain=19.7:110.3, scale=0.2]
+\clip (265,-2.5) rectangle (318,60);
 \foreach \y in {1,...,10} \draw
 	plot ({(\x-32)/1.8+273}, 
 		{0.1*\y*exp(20.386-5132/((\x-32)/1.8+273))});
@@ -24,21 +24,42 @@
 	;
 \end{tikzpicture}
 
-\begin{tikzpicture}[domain=272.7:313.3, scale=0.2]
+\begin{tikzpicture}[domain=267.7:318.3, scale=0.2]
+\clip (266.5,-2.5) rectangle (319.5,60);
 \foreach \y in {1,...,10} \draw
 	plot (\x, {0.1*\y*exp(20.386-5132/\x)});
-\draw ({273-0.3},-0.3) grid ({273+40+0.3},+0.3);
-\foreach \x in {0,2,...,40} \draw
+\draw ({268-0.3},-0.3) grid ({278+40+0.3},+0.3);
+\foreach \x in {-5,0,...,45} \draw
 	(\x+273,0) node[below] {\x};
-\clip (272.7,0) rectangle 
-	(313.3,{exp(20.386-5132/313.3)});
-\foreach \x in {0,...,40} \draw
+\clip (267.7,0) rectangle 
+	(318.3,{exp(20.386-5132/318.3)});
+\foreach \x in {-5,0,...,45} \draw
 	(\x+273,{exp(20.386-5132/(\x+273))})
-	edge[-] (313+0.3,{exp(20.386-5132/(\x+273))})
+	edge[-] (318+0.3,{exp(20.386-5132/(\x+273))})
 	edge[-] ({\x+273+2.125*exp(20.386-5132/(\x+273))},0)
 	edge[-] (\x+273,-0.3)
 	;
+\foreach \x/\n in {20/caution, 25/danger, 30/extreme danger,35/death} \draw
+	(\x+273,{exp(20.386-5132/(\x+273))})
+	node[above left, rotate=-29] {\n}
+	;
 \end{tikzpicture}
+
+%\begin{tikzpicture}[domain=272.7:313.3, scale=0.2]
+%\foreach \y in {1,...,10} \draw
+%	plot (\x, {0.1*\y*exp(20.386-5132/\x)});
+%\draw ({273-0.3},-0.3) grid ({273+40+0.3},+0.3);
+%\foreach \x in {0,2,...,40} \draw
+%	(\x+273,0) node[below] {\x};
+%\clip (272.7,0) rectangle 
+%	(313.3,{exp(20.386-5132/313.3)});
+%\foreach \x in {0,...,40} \draw
+%	(\x+273,{exp(20.386-5132/(\x+273))})
+%	edge[-] (313+0.3,{exp(20.386-5132/(\x+273))})
+%	edge[-] ({\x+273+2.125*exp(20.386-5132/(\x+273))},0)
+%	edge[-] (\x+273,-0.3)
+%	;
+%\end{tikzpicture}
 \end{document}
 
 2.125=(40-14)/exp(20.386-5132/(273+14))
