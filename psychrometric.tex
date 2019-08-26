@@ -1,5 +1,6 @@
 \RequirePackage{luatex85}
 \documentclass[tikz]{standalone}
+\usepackage{amsmath}
 \begin{document}
 \begin{tikzpicture}[domain=19.7:110.3, scale=0.2]
 \clip (265,-2.5) rectangle (318,60);
@@ -24,25 +25,34 @@
 	;
 \end{tikzpicture}
 
-\begin{tikzpicture}[domain=267.7:318.3, scale=0.2]
-\clip (266.5,-2.5) rectangle (319.5,60);
-\foreach \y in {1,...,10} \draw
-	plot (\x, {0.1*\y*exp(20.386-5132/\x)});
-\draw ({268-0.3},-0.3) grid ({278+40+0.3},+0.3);
-\foreach \x in {-5,0,...,45} \draw
-	(\x+273,0) node[below] {\x};
-\clip (267.7,0) rectangle 
-	(318.3,{exp(20.386-5132/318.3)});
-\foreach \x in {-5,0,...,45} \draw
-	(\x+273,{exp(20.386-5132/(\x+273))})
-	edge[-] (318+0.3,{exp(20.386-5132/(\x+273))})
-	edge[-] ({\x+273+2.125*exp(20.386-5132/(\x+273))},0)
-	edge[-] (\x+273,-0.3)
+\begin{tikzpicture}[scale=0.2,
+	declare function={f(\x)=exp(20.386-5132/\x);}]
+\def\a{267.7}
+\def\b{323.3}
+\clip (\a - 2.2, -2.5) rectangle (\b+3.2, {f(35+273)+7});
+\draw (\a, -0.3) grid (\b, 0.3);
+%\clip (\a - 2.2, -2.5) rectangle (\b+3.2, {f(35+273)});
+\foreach \x in {-5, 0, ..., 35} \draw
+	(\x + 273, {f(\x + 273)}) coordinate (a)
+	(a) -- (\b, {f(\x + 273)}) node[right] {$\quad\llap\x$}
+	(a) node[above left, rotate=-29, yshift=-5] {$\x$}
+	-- ++({min(2.125*f(\x+273), \b-\x-273)}, 
+		{max(-8/17*(\b-\x-273), -f(\x+273))})
+	(a) -- (\x + 273, -0.3) node[below] {$\x$}
 	;
-\foreach \x/\n in {20/caution, 25/danger, 30/extreme danger,35/death} \draw
-	(\x+273,{exp(20.386-5132/(\x+273))})
-	node[above left, rotate=-29] {\n}
+\foreach \x in {40, 45, ..., 50} \draw
+	(\x + 273, {f(35.3+273)}) coordinate (a)
+	(a) -- (\x + 273, -0.3) node[below] {$\x$}
 	;
+\foreach \x/\n in {20/caution, 25/danger, 30/extreme danger, 35/death} \draw
+	(\x + 273, {f(\x+273)})
+	node[above left, rotate=-29, yshift=-5] {\smash{(\n)}$\quad\,\,$}
+	;
+\foreach \h/\x in {100/0.6, 90/2.6, 80/4.8, 70/7.3, 60/10.5, 50/14.2} \draw
+	(35+273+\x, {f(35+273)+2.5}) node[above, rotate=60, right] {$\h\%$};
+\clip (\a - 2.2, -2.5) rectangle (\b+3.2, {f(35+273)+2.5});
+\foreach \y in {1, ..., 10} \draw
+	plot[domain=\a:\b] (\x, {f(\x)*\y/10});
 \end{tikzpicture}
 
 %\begin{tikzpicture}[domain=272.7:313.3, scale=0.2]
