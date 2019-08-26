@@ -1,0 +1,59 @@
+%% Directions:
+%% print duplex short-end-binding
+\RequirePackage{luatex85}
+\documentclass[12pt, tikz]{standalone}
+\renewcommand\familydefault\sfdefault
+
+\begin{document}
+\begin{tikzpicture}[ultra thick, dashed]
+\clip (-5.5in,0in) rectangle (5.5in,8.5in);
+\coordinate (topL) at (-3.25in,5.75in);
+\coordinate (topR) at (3.25in,5.75in);
+\draw[solid] (topL) -- ++(160:10in);
+\draw[solid] (topR) -- ++(20:10in);
+\draw (topL) -- (topR);
+\coordinate (midL) at (-4.25in,0);
+\coordinate (midR) at (4.25in,0);
+\draw[solid] (midL) -- ++(left:10in);
+\draw[solid] (midR) -- ++(right:10in);
+\draw (midL) -- ++(80:10in);
+\draw (midR) -- ++(100:10in);
+\draw (midL) -- ++(down:10in);
+\draw (midR) -- ++(down:10in);
+\end{tikzpicture}
+
+\begin{tikzpicture}[ultra thick, dashed]
+\clip (-5.5in,0in) rectangle (5.5in,8.5in);
+\draw (0,2.875in) node {\smash{\scalebox{6.5}{%
+    \begin{minipage}{1.1in}%
+    \centering\bfseries%
+    BACK COVER MESSAGE%
+    \end{minipage}%
+    }}};
+\end{tikzpicture}
+
+\begin{tikzpicture}[ultra thick, dashed]
+\clip (-5.5in,-8.5in) rectangle (5.5in,0);
+\coordinate (midL) at (-4.25in,0);
+\coordinate (midR) at (4.25in,0);
+\draw[solid] (midL) -- ++(left:10in);
+\draw[solid] (midR) -- ++(right:10in);
+\draw (midL) -- ++(80:10in);
+\draw (midR) -- ++(100:10in);
+\draw (midL) -- ++(down:10in);
+\draw (midR) -- ++(down:10in);
+\coordinate (botL) at (-5.5in,-5.75in);
+\coordinate (botR) at (5.5in,-5.75in);
+\draw (botL) -- (botR);
+\end{tikzpicture}
+
+\begin{tikzpicture}[ultra thick, dashed]
+\clip (-5.5in,-8.5in) rectangle (5.5in,0in);
+\draw (0,-2.875in) node {\smash{\scalebox{6.5}{%
+    \begin{minipage}{1.1in}%
+    \centering\bfseries%
+    FRONT COVER MESSAGE%
+    \end{minipage}%
+    }}};
+\end{tikzpicture}
+\end{document}
