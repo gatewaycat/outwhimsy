@@ -1,0 +1,16 @@
+\documentclass[tikz]{standalone}
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+\begin{document}
+\Repeat{4}{
+\begin{tikzpicture}[scale=0.75]
+\foreach \x in {0,...,24} {
+\foreach \y in {0,...,36}
+\fill (\x,\y) circle (0.1);
+}
+\end{tikzpicture}
+}
+\end{document}
