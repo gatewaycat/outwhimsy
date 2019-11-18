@@ -6,13 +6,15 @@
 \usepackage{tikz, graphicx}
 
 %% USER DEFINED %%
-\def\streetx{536}
-\def\streety{247}
+\def\streetx{918}
+\def\streety{365}
 %%%%%%%%%%%%%
 
 \begin{document}
 \thispagestyle{empty}
 \tikzset{every picture/.append style={xscale=1/sqrt(2)}}
+\def\maxx{16}
+\def\maxy{11}
 \newcommand\mytikz[2]{
   \begin{tikzpicture}
     [overlay, remember picture, xscale=sqrt(2)]
@@ -41,18 +43,23 @@
     ++(up:1) coordinate (a3)
     ++(left:1) coordinate (a4)
     ;
-  \draw[step=0.1] (\xa,\ya) grid ++ (1,1);
-  \draw[step=0.02] (\xa+\xb/10,\ya+\yb/10) grid ++ (0.1,0.1);
-  \fill[red](\xa+\xb/10+\xc/100,\ya+\yb/10+\yc/100-1/100) rectangle ++ (0.02,0.02);
-  \draw (-0.5,-0.5) grid (20.5,10.5);
+  \draw[step=0.1]
+    (\xa,\ya) grid ++ (1,1);
+  \draw[step=0.02]
+    (\xa+\xb/10, \ya+\yb/10) grid ++ (0.1,0.1);
+  \fill[red]
+    (\xa+\xb/10+\xc/100, 
+      \ya+\yb/10+\yc/100-1/100) 
+    rectangle ++(0.02,0.02);
+  \draw (-0.5,-0.5) grid (\maxx+0.5,\maxy+0.5);
   \draw (0,-0.5) node [left, rotate=90] {Avenue 0};
-  \draw (0,10.5) node [right, rotate=90] {\phantom{Avenue 0}};
-  \foreach \x in {1,...,20}{
+  \draw (0,\maxy+0.5) node [right, rotate=90] {\phantom{Avenue 0}};
+  \foreach \x in {1,...,\maxx}{
     \draw (\x,-0.5) node [left, rotate=90] {\x00};
     }
   \draw (-0.5,0) node [left] {Avenue 1};
-  \draw (20.5,0) node [right] {\phantom{Avenue 1}};
-  \foreach \x in {1,...,10}{
+  \draw (\maxx+0.5,0) node [right] {\phantom{Avenue 1}};
+  \foreach \x in {1,...,\maxy}{
     \draw (-0.5,\x) node [left] {\x01};
     }
   }
