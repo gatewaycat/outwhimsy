@@ -16,47 +16,14 @@
 \newcommand\Y{\anti{Yellow}}
 \newcommand\K{\quark{black}}
 
-\newcommand\gluon[2]{\footnotesize\begin{tikzpicture}
-  \node (g) {$\phantom g$};
-  \begin{scope}
-    \clip (g.north west) rectangle (g.east);
-    \node {\color{#1}$g$};
-    \end{scope}
-  \begin{scope}
-    \clip (g.south west) rectangle (g.east);
-    \node {\color{#2}$g$};
-    \end{scope}
-  \end{tikzpicture}}
-\newcommand\gluonalt[4]{\footnotesize\begin{tikzpicture}
-  \node (g) {$\phantom g$};
-  \begin{scope}
-    \fill[#1,opacity=0.5] (g.north west) ++(-0.5pt,0.5pt) rectangle (g.center);
-    \clip (g.center) rectangle (g.north west);
-    \node {\color{white}$g$};
-    \end{scope}
-  \begin{scope}
-    \clip (g.north east) ++(0pt,1pt) rectangle (g.center);
-    \node {\color{#2}$g$};
-    \end{scope}
-  \begin{scope}
-    \clip (g.south west) ++(0pt,-1pt)  rectangle (g.center);
-    \node {\color{#3}$g$};
-    \end{scope}
-  \begin{scope}
-    \fill[#4,opacity=0.5] (g.south east) ++(0.5pt,-0.5pt) rectangle (g.center);
-    \clip (g.center) rectangle (g.south east);
-    \node {\color{white}$g$};
-    \end{scope}
-  \end{tikzpicture}}
-
 \begin{document}
 \begin{tikzpicture}[
   z={(0cm,1cm)},
   y={(1cm,0cm)},
   x={(7mm,3mm)},
   inner sep=0mm,
-  gray,
-  very thin]
+  every node/.style={fill=white}
+  ]
 \foreach \x/\y/\z/\i in {
   -1/-1/-1/1, 0/0/0/1, 0/0/0/-1, 1/1/1/-1}{
   \draw (\x,\y,\z) --++(right:\i) --++(up:\i)
@@ -66,14 +33,7 @@
   \draw (\x,\y,\z) --++(0,0,\i) --++(up:\i)
   --++(0,0,-\i) --++(down:\i);}
 \draw
-  (1,1,0) --++(left:2) --++(down:2) --++(right:2) --cycle
-  (1,0,1) --++(left:2) --++(0,0,-2) --++(right:2) --cycle
-  (0,1,1) --++(down:2) --++(0,0,-2) --++(up:2) --cycle
-  ;
-\draw (0,0,0) node[fill=white] {\,\gluonalt{red}{Green}{Magenta}{cyan}\hspace{1pt}\raisebox{2.2pt}{\K\nu}\hspace{0.5pt}\gluonalt{red}{blue}{Yellow}{cyan}\,};
-% \draw (0,0,0) node {\,\,\,\,\K\nu\gluon{red}{cyan}\!\gluon{Green}{Magenta}\!\gluon{blue}{Yellow}};
-\begin{scope}[every node/.style={fill=white}]
-\draw
+  (0,0,0) node {\K\nu}
   (1,0,0) node (red) {\R d}
   (0,1,0) node (green) {\G d}
   (0,0,1) node (blue) {\B d}
@@ -88,13 +48,6 @@
   (0,1,1) node {\C u}
   (1,0,1) node {\M u}
   (1,1,0) node {\Y u}
-  (-1,1,0) node {\gluon{Green}{cyan}}
-  (1,-1,0) node {\gluon{red}{Magenta}}
-  (1,0,-1) node {\gluon{red}{Yellow}}
-  (-1,0,1) node {\gluon{blue}{cyan}}
-  (0,1,-1) node {\gluon{Green}{Yellow}}
-  (0,-1,1) node {\gluon{blue}{Magenta}}
   ;
-  \end{scope}
 \end{tikzpicture}
 \end{document}
