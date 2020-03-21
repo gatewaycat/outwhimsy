@@ -1,0 +1,52 @@
+\documentclass[tikz]{standalone}
+\usepackage{mathtools, array}
+\newcommand\z{\raisebox{0.3mm}{$\!\begin{smallmatrix}\rotatebox{180}{\reflectbox{F\scalebox{0.33}{\!}}}\end{smallmatrix}\!$}}
+\newcommand\e{\raisebox{0.27mm}{$\!\begin{smallmatrix}\rotatebox{180}{\reflectbox{6}}\end{smallmatrix}\!$}}
+\newcommand\G{\color{gray}}
+
+\newcommand\monthraw[5]{
+\node at (#2*52mm, #3*-31mm) {
+\begin{tabular}{@{}r@{\,\,}|*7{@{}c@{}|}@{}}
+\multicolumn{1}{@{}c}{} &
+\multicolumn{7}{c}{\clap{\,\scalebox{2.3}{\scshape m\,o\,n\,t\,h}\,\,\,\,\,\,\scalebox{1.9}{#4}}} \\[-0.5ex]
+\multicolumn{1}{@{}c}{\textcolor{#1}{\small \emph{day\,of\,week:}}\!\!} &
+\multicolumn{1}{c}{0} &
+\multicolumn{1}{c}{1} &
+\multicolumn{1}{c}{2} &
+\multicolumn{1}{c}{3} &
+\multicolumn{1}{c}{4} &
+\multicolumn{1}{c}{5} &
+\multicolumn{1}{c}{6} \\ \cline{2-8}
+\textcolor{#1}{\small\emph{week:}}
+0&\G#400&\G#401&\G#402&\G#403&\G#404&\G#405&\G#406 \\[-0.1ex] \cline{2-8}
+1&\G#410&\G#411&\G#412&\G#413&\G#414&\G#415&\G#416 \\[-0.1ex] \cline{2-8}
+2&\G#420&\G#421&\G#422&\G#423&\G#424&\G#425&\G#426 \\[-0.1ex] \cline{2-8}
+3&\G#430&\G#431&\G#432&\G#433&\G#434&\G#435&\G#436 \\ [-0.1ex]\cline{2-8}
+#5
+\end{tabular}
+};
+}
+\newcommand\monthshort[4][white]{\monthraw{#1}{#2}{#3}{#4}{}}
+\newcommand\monthlong[4][white]{\monthraw{#1}{#2}{#3}{#4}{4&\G#440&\G#441&\G#442&\G#443&\G#444&\G#445&\G#446 \\[-0.1ex] \cline{2-8}}}
+
+\begin{document}
+\sffamily
+\begin{tikzpicture}
+
+\monthshort309
+\monthlong31\z
+\monthshort32\e
+
+\monthshort206
+\monthlong217
+\monthshort228
+
+\monthshort103
+\monthlong114
+\monthshort125
+
+\monthshort[black]000
+\monthlong011
+\monthshort022
+\end{tikzpicture}
+\end{document}  
