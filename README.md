@@ -11,3 +11,5 @@
 
 ## 4. Yijing Hexagram-Patterned Wrapping Paper (pattern-yijing.[tex](pattern-yijing.tex) [pdf](pattern-yijing.tex))
 ![pattern-yijing.png](pattern-yijing.png)
+
+## 5. Demographics v Implicit Bias [iat.ipynb](iat.ipynb) ![iat.png](iat.png)
