@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+\usepackage[margin=.5in,top=.2in,left=.2in,landscape]{geometry}
+\usepackage{tikz-cd,mathtools}
+\begin{document}
+\pagestyle{empty}
+\newcommand\headsub[3]{$\overbrace{\displaystyle\hspace{2cm}\mathclap{\text{#3}}\hspace{2cm}\vphantom{\sum^\infty}}^{\overset{\displaystyle\text{\Large #1}}{\displaystyle\text{#2}\vphantom{\int}}}$}
+\newcommand\stackthree[3]{$\smash{\overset{\mathclap{\textstyle\text{\tiny#1}\phantom{\text{\tiny#2}}}}{\overset{\mathclap{\text{\tiny#2}\phantom{\text{\tiny#1}}}}{\displaystyle\vphantom{\sum}\text{\footnotesize#3}}}}$}
+
+
+\[\begin{tikzcd}[math mode = false, row sep = .5in]
+{}& $\mathclap{\overbrace{\hspace{10cm}}^{\displaystyle\text{Adrenal cortex}\vphantom\int}}$
+&& $\mathclap{\overbrace{\hspace{4cm}}^{\displaystyle\text{Peripheral tissue}\vphantom\int}}$
+\\[-.4in] \headsub{Zona Glamerulosa}{Mineralocorticoids}{Cholesterol}
+	\ar{d}[swap]{\stackthree{ACTH~\footnotesize$\oplus\!\!\to$}{Ketoconazole~\footnotesize$\ominus\!\!\to$}{Cholesterol desmolase} \quad} 
+&\headsub{Zona Fasciculata}{Glucocorticoids}{}
+&\headsub{Zona Reticularis}{Androgens}{}
+&\headsub{}{Estrogens, DHT}{}
+\\Pregnenolone 
+	\ar{d}[swap]{\Large\textbf D \quad}%[swap,text width=4cm]{3$\textstyle\beta$-hydroxysteroid dehydrogenase} 
+	\ar{r}[outer sep = 1ex]{\Large\textbf A}%[anchor=center,rotate=90,xshift= 10ex]{17$\textstyle\alpha$-hydroxylase}
+&17-hydroxypregnenolone
+	\dar[swap]{\Large\textbf D \quad}
+	\rar
+& $\smash{\overset{\textstyle\text{(DHEA)}}{\text{Dehydroepiandrosterone}}}$
+	\dar[swap]{\Large\textbf D \quad}
+\\\bf Progesterone
+	\ar{d}[swap]{\Large\textbf B \quad}%[swap,text width=4cm]{21-hydroxylase}
+	\ar{r}[outer sep = 1ex]{\Large\textbf A}%[anchor=center,rotate=90,xshift= -10ex]{17$\textstyle\alpha$-hydroxylase}
+&17-hydroxyprogesterone
+	\dar[swap]{\Large\textbf B \quad}
+	\rar
+& Androstenedione
+	\dar
+	\rar{Aromatase}
+& Estrone
+	\dar
+\\11-deoxycorticosterone 
+	\ar{d}[swap]{\Large\textbf C \quad}%[swap,text width=4cm]{11$\textstyle\beta$-hydroxylase}
+&11-deoxycortisol
+	\dar[swap]{\Large\textbf C \quad}
+& Testosterone
+	\rar{Aromatase}
+	\ar[swap,bend right=18]{dr}{5$\textstyle\alpha$-reductase}
+&\bf Estradiol
+\\Corticosterone 
+	\ar{d}[swap]{\stackthree{\hspace{2.5cm}}{Angiotensin~II~\footnotesize$\oplus\!\!\to$}{Aldosterone synthase} \quad}
+&\bf Cortisol
+&& $\smash{\underset{\textstyle\text{(DHT)}}{\text{Dihydrotestosterone}}}$
+\\\bf Aldosterone
+\end{tikzcd}\]
+
+\vspace{13mm}\Large
+
+\noindent\hspace{15mm}\textbf A \quad 17$\alpha$-hydroxylase
+
+\noindent\hspace{15mm}\textbf B \quad 21-hydroxylase
+
+\noindent\hspace{15mm}\textbf C \quad 11$\textstyle\beta$-hydroxylase
+
+\noindent\hspace{15mm}\textbf D \quad 3$\beta$-hydroxysteroid dehydrogenase
+
+
+\end{document}
+\newpage
+
+\newpage
+$\rightharpoondown$
+$\dashv$
+ACTH $\longrightarrow$
+$\rightarrow\!\oplus\rightarrow$
+${}-{}\dashv$
+
+
+\def\toplus{{%
+    \setbox0\hbox{$\longrightarrow$}%
+    \rlap{\hbox to \wd0{\hss$\oplus$\hss}}\box0
+}}
+
+\def\tominus{{%
+    \setbox0\hbox{$\longrightarrow$}%
+    \rlap{\hbox to \wd0{\hss$\ominus$\hss}}\box0
+}}
+
+$\toplus$
+$\tominus$
+
+
+\end{document}  
