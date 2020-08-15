@@ -1,0 +1,137 @@
+\RequirePackage{luatex85}
+\documentclass{article}
+\usepackage[margin=0mm]{geometry}
+\usepackage{mathtools, tikz, xcolor}
+
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+\newcommand\bookmark[1]{
+  \centering
+  \Repeat{4}{
+    \(
+      \mathclap{
+        \begin{tikzpicture}
+          \newcommand{\x}{210mm}
+          \newcommand{\y}{37mm}
+          \draw (\x/2, \y/2) edge ++(up:1) edge ++(right:1);
+          \draw (\x/-2, \y/2) edge ++(up:1) edge ++(left:1);
+          \draw (\x/2, \y/-2) edge ++(down:1) edge ++(right:1);
+          \draw (\x/-2, \y/-2) edge ++(down:1) edge ++(left:1);
+          #1
+        \end{tikzpicture}
+      }
+    \)
+    \vfill
+  }
+}
+
+\begin{document}
+%\bf
+\newcounter{atom}
+
+\newcommand\period[3]{
+  %% #1 = yposition (-1 to 1)
+  %% #2 = last atomic number + 1
+  %% #3 = reverse list of elements in period
+  \setcounter{atom}{#2}
+  \foreach \n in {#3}{
+    \addtocounter{atom}{-1}
+    \draw
+      (
+        {
+          \x/2 + 
+          (\arabic{atom}-#2)*
+          6.35mm
+        },
+        {\y*#1*0.0605}
+      )
+      node {
+        \small
+        \(
+          \overset{
+            \scalebox{0.5}{\arabic{atom}}
+          }{
+            \smash{\text\n}
+            \vphantom0
+          }
+        \)
+      };
+    }
+  }
+
+\newcommand\I{\color{red!65!black}} % La's
+\newcommand\J{\color{red!70!orange}} % Ac's
+\newcommand\G{\color{orange}} % Transition metal
+\newcommand\F{\color{yellow!55!black}} % Metal
+\newcommand\E{\color{green!80!black!70!yellow}} % Metalloid
+\newcommand\B{\color{green!50!blue}} % Nonmetal
+\newcommand\A{\color{blue!80!white}} % Nobles
+\newcommand\C{\color{blue!50!red}} % Group 1
+\newcommand\D{\color{blue!20!red}} % Group 2
+\newcommand\K{\color{gray}} % Unknown
+
+
+\bookmark{
+    \period{7}{3}{
+      \A He, H
+    }
+    \period{5}{5}{
+      \D Be, \C Li
+    }
+    \period{3}{13}{
+      \D Mg, \C Na, \A Ne, \B F, \B O, \B N, \B C, \E B
+    }
+    \period{1}{21}{
+      \D Ca, \C K, \A Ar, \B Cl, \B S, \B P, \E Si, \F Al
+    }
+    \period{-1}{39}{
+      \D Sr, \C Rb, \A Kr, \B Br, \B Se, \E As, \E Ge, \F Ga, \F Zn,
+      \G Cu, \G Ni, \G Co, \G Fe, \G Mn, \G Cr, \G V, \G Ti, \G Sc
+    }
+    \period{-3}{57}{
+      \D Ba, \C Cs, \A Xe, \B I, \E Te, \E Sb, \F Sn, \F In, \F Cd, 
+      \G Ag, \G Pd, \G Rh, \G Ru, \G Tc, \G Mo, \G Nb, \G Zr, \G Y
+    }
+    \period{-5}{89}{
+      \D Ra, \C Fr, \A Rn, \F At, \F Po, \F Bi, \F Pb, \F Tl, \F Hg, 
+      \G Au, \G Pt, \G Ir, \G Os, \G Re, \G W, \G Ta, \G Hf, 
+      \I Lu, \I Yb, \I Tm, \I Er, \I Ho, \I Dy, \I Tb, \I Gd, \I Eu,
+      \I Sm, \I Pm, \I Nd, \I Pr, \I Ce, \I La
+    }
+    \period{-7}{121}{
+      {}, {}, \K Og, \K Ts, \K Lv, \K Mc, \K Fl, \K Nh, \K Cn, \K Rg, \K Ds, \K Mt, 
+      \G Hs, \G Bh, \G Sg, \G Db, \G Rf, 
+      \J Lr, \J No, \J Md, \J Fm, \J Es, \J Cf, \J Bk, \J Cm,
+      \J Am, \J Pu, \J Np, \J U, \J Pa, \J Th, \J Ac
+    }
+\draw[xshift=-8cm, yshift=15mm, gray, font={\small}]
+  (0,0)
+    node[anchor=east] {1s} ++(0mm,-2mm)
+    edge[<-, red] +(146: 6mm) ++(0mm, 2mm)
+  ++(down:2.7mm)
+    node[anchor=east] {2p 2s} ++(0mm,-2mm)
+    edge[<-, red] +(146: 6mm) ++(0mm, 2mm)
+  ++(down:2.7mm)
+    node[anchor=east] {3d 3p 3s} ++(0mm,-2mm)
+    edge[<-, red] +(146: 11.5mm) ++(0mm, 2mm)
+  ++(down:2.7mm)
+    node[anchor=east] {4f 4d 4p 4s} ++(0mm,-2mm)
+    edge[<-, red] +(146: 11.5mm) ++(0mm, 2mm)
+  ++(down:2.7mm)
+    node[anchor=east] {5f 5d 5p 5s} ++(0mm,-2mm)
+    edge[<-, red] +(146: 16.5mm) ++(0mm, 2mm)
+  ++(down:2.7mm)
+    node[anchor=east] {6d 6p 6s} ++(0mm,-2mm)
+    edge[<-, red] +(146: 16.5mm) ++(0mm, 2mm)
+  ++(down:2.7mm)
+    node[anchor=east] {7p 7s} ++(0mm,-2mm)
+    edge[<-, red] +(146: 21.5mm) ++(0mm, 2mm)
+  ++(down:2.7mm)
+    node[anchor=east] {8s} ++(0mm,-2mm)
+    edge[<-, red] +(146: 21.5mm) ++(0mm, 2mm)
+;
+}
+\end{document}
