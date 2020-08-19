@@ -1,0 +1,24 @@
+\documentclass[tikz]{standalone}
+%\documentclass{article}
+%\usepackage[margin=0in, top=12mm, paperheight=4.25in, paperwidth=5.5in]{geometry}
+\usepackage{tikz-cd, amsmath, mathtools, tipa}
+\newcommand\hide[1]{$\mathclap{\text{#1}}$}
+\renewcommand\!{\hspace{-0.5mm}}
+\begin{document}
+%\centering
+\begin{tikzcd}[column sep=3mm, row sep=11mm, math mode=false, nodes={font=\Huge}, labels={font=\footnotesize}, outer sep=-0.2mm]
+& & \hide{\,t\smash,h} & s\!/\!\textipa S 
+%\rar[yshift=8]\rar & \,\,\,\,\hide{t\smash,h} 
+\rar\dar{*} & h
+%& \hide{\quad\footnotesize Don't mutate:} &\textipa R l
+\\ p \rar{lenition\vphantom p} \ar{d}[anchor=south, rotate=90]{eclipsis} & f \rar \dar 
+& \{\} \dar \ar[dashed,xshift=-4]{u}[anchor=south, rotate=90]{prothesis\,\,} \uar[dashed, xshift=4]
+& t \rar%{*}
+\dar & h & k\!/\!c \rar\dar & x\!/\!\c{c}
+\\ b \rar\dar & w\!\!/v & n 
+& d \rar%{*}
+\dar & \textipa G\!/\!j & g/\!\textbardotlessj \rar \dar & \textipa G\!/\!j
+\\ m \rar& w\!\!/v & 
+& n & & \textipa N\!/\!\textltailn
+\end{tikzcd}
+\end{document}
