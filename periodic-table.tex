@@ -1,5 +1,6 @@
 \RequirePackage{luatex85}
 \documentclass[tikz]{standalone}
+\usetikzlibrary{arrows.meta}
 \usepackage{mathtools, xcolor}
 
 \newcounter{atom}
@@ -14,6 +15,8 @@
         {\scalebox{10}{\smash\n\vphantom0}};
   }
 }
+
+%\renewcommand\period[3]{}
 
 \newcommand\I{\color{red!65!black}} % La's
 \newcommand\J{\color{red!70!orange}} % Ac's
@@ -39,5 +42,27 @@
   \period5{57}{\D Ba, \C Cs, \A Xe, \B I, \E Te, \E Sb, \F Sn, \F In, \F Cd, \G Ag, \G Pd, \G Rh, \G Ru, \G Tc, \G Mo, \G Nb, \G Zr, \G Y}
   \period6{89}{\D Ra, \C Fr, \A Rn, \F At, \F Po, \F Bi, \F Pb, \F Tl, \F Hg, \G Au, \G Pt, \G Ir, \G Os, \G Re, \G W, \G Ta, \G Hf, \I Lu, \I Yb, \I Tm, \I Er, \I Ho, \I Dy, \I Tb, \I Gd, \I Eu,\I Sm, \I Pm, \I Nd, \I Pr, \I Ce, \I La}
   \period7{121}{{}, {}, \K Og, \K Ts, \K Lv, \K Mc, \K Fl, \K Nh, \K Cn, \K Rg, \K Ds, \K Mt, \G Hs, \G Bh, \G Sg, \G Db, \G Rf, \J Lr, \J No, \J Md, \J Fm, \J Es, \J Cf, \J Bk, \J Cm,\J Am, \J Pu, \J Np, \J U, \J Pa, \J Th, \J Ac}
+  \newcommand\xdown{-25mm}
+  \newcommand\arrowlen{53mm}
+  \draw (-25.5*\x,-2.2*\x) node[rotate=0] {
+    \begin{tikzpicture}
+      \draw[
+    gray, line width=3mm,
+    every node/.style={anchor=east, shift={(0mm,15mm)}, scale=8},
+    every edge/.append style={red, {<[scale=1.2]}-, shift={(-8mm,-2mm)}, opacity=0.3},
+  ]
+  (0,0) node {1s} 
+  ++(0,0) edge +(150: 1.1*\arrowlen) ++(0,\xdown) node {2p 2s}
+  ++(0,0) edge +(150: 1.1*\arrowlen) ++(0,\xdown) node {3d 3p 3s}
+  ++(0,0) edge +(150: 2.1*\arrowlen) ++(0,\xdown) node {4f 4d 4p 4s}
+  ++(0,0) edge +(150: 2.1*\arrowlen) ++(0,\xdown) node {5f 5d 5p 5s}
+  ++(0,0) edge +(150: 3*\arrowlen) ++(0,\xdown) node {6d 6p 6s}
+  ++(0,0) edge +(150: 3*\arrowlen) ++(0,\xdown) node {7p 7s}
+  ++(0,0) edge +(150: 4*\arrowlen) ++(0,\xdown) node {8s}
+  ++(0,0) edge +(150: 4*\arrowlen)
+;
+    \end{tikzpicture}
+  };
+
 \end{tikzpicture}
 \end{document}
