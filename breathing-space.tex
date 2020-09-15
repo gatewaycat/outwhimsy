@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{tikz}
+\thispagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
+  [remember picture, overlay, very thick, dashed]
+  \draw (current page.west)
+    -- ++(right:8.5in)
+  ;
+  \draw (current page.west)
+    ++(right:8.5in/3) edge ++(down:11in/2)
+    ++(right:8.5in/3) edge ++(down:11in/2)
+  ;
+  \draw (current page.north) ++(down:11in/4)
+    node[text width=8.5in, align=center, scale=4]
+    {take a breath}
+  ;
+  \foreach \x in {1,2,3}
+  \draw (current page.west)
+    ++({8.5in*(\x/3-1/6)}, -11in/4)
+    node[scale=10] {\x}
+  ;
+\end{tikzpicture}
+\end{document}
