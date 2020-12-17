@@ -1,0 +1,70 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz-3dplot}
+\tdplotsetmaincoords{75.5}{125} \def\zscale{2.2}
+
+\newcommand\stairs[6]{
+    \pgfmathparse{(#4-#1)/sqrt((#4-#1)^2 + (#5-#2)^2)}
+        \edef\x{\pgfmathresult}
+    \pgfmathparse{(#5-#2)/sqrt((#4-#1)^2 + (#5-#2)^2)}
+        \edef\y{\pgfmathresult}
+    \draw
+        (#1,#2,{(#3)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) ++(-0.2*\x,-0.2*\y,0) 
+            coordinate (A)
+        (#1,#2,{(#3)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) 
+            coordinate (B)
+        (#4,#5,{(#6)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) 
+            coordinate (C)
+        (#4,#5,{(#6)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) ++(0.2*\x,0.2*\y,0) 
+            coordinate (D)
+    ;
+    \foreach \node/\nodetwo in {A/A2,B/B2,C/C2,D/D2}
+        \draw (\node) -- ++(0.2*\y, -0.2*\x, 0) coordinate(\nodetwo);
+    \draw (A) -- (B) -- (C) -- (D) (A2) -- (B2) -- (C2) -- (D2);
+}
+
+\begin{document}
+\begin{tikzpicture}[tdplot_main_coords]
+
+%% Basement (Floor -1)
+%% and Floor 0
+\foreach \level in {-1*\zscale, 0*\zscale}
+    \draw
+    (0,-2,\level) -- (2,-2,\level) -- (2,2,\level) -- (-2,2,\level) -- 
+    (-2,-1,\level) -- (-1,-1,\level) -- (-1,-0.4,\level) -- (0,-0.4,\level) -- cycle
+;
+
+%% Floor 1
+\draw
+    (-2,-1,1*\zscale) -- (-1,-1,1*\zscale) -- (-1,-0.2,1*\zscale) -- 
+    (-0.6,-0.2,1*\zscale) -- (-0.6,2,1*\zscale) -- (-2,2,1*\zscale) -- cycle;
+
+%% Roof (Floor 2)
+\draw
+    (-2,-1,2*\zscale) -- (-1,-1,2*\zscale) -- (-1,-0.2,2*\zscale) --
+    (2,-0.2,2*\zscale) -- (2,2,2*\zscale) -- (-2,2,2*\zscale) -- cycle;
+
+%% Floor -0.5 Bedroom,
+%% Floor 0.5 Bedroom,
+%% Greenhouse (Floor 1.5),
+%% and Stairs to all bedrooms
+\foreach \level in {-0.5,0.5,1.5}{
+    \draw
+        (-2,-2,\level*\zscale)
+         -- (-0.6,-2,\level*\zscale) -- (-0.6,-1.8,\level*\zscale) -- (-0.2,-1.8,\level*\zscale) 
+         -- (-0.2,-1,\level*\zscale) -- (-2,-1,\level*\zscale) -- cycle
+    ;
+    \foreach \bedroom in {-0.8,1.2}{
+        \stairs{-0.9}{\bedroom}{\level}{-0.9}{\bedroom+0.4}{\level-0.5}
+        \stairs{-0.7}{\bedroom}{\level}{-0.7}{\bedroom+0.4}{\level+0.5}
+    }
+}
+
+%% Stairs to Basement (Floor -1)
+%% and Stairs to Greenhouse (Floor 1.5)
+\foreach \level in {0,1}{
+    \stairs{-0.1}{-0.4}{\level+-1}{-0.1}{-0.8}{\level+-0.5}
+    \stairs{-0.1}{-1.2}{\level+-0.5}{-0.1}{-1.6}{\level+0}
+    \stairs{-0.2}{-1.9}{\level+0}{-0.6}{-1.9}{\level+0.5}
+}
+\end{tikzpicture}
+\end{document}
