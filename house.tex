@@ -2,24 +2,24 @@
 \usepackage{tikz-3dplot}
 \tdplotsetmaincoords{75.5}{125} \def\zscale{2.2}
 
-\newcommand\stairs[6]{
-    \pgfmathparse{(#4-#1)/sqrt((#4-#1)^2 + (#5-#2)^2)}
+\newcommand\stairs[7][]{
+    \pgfmathparse{(#5-#2)/sqrt((#5-#2)^2 + (#6-#3)^2)}
         \edef\x{\pgfmathresult}
-    \pgfmathparse{(#5-#2)/sqrt((#4-#1)^2 + (#5-#2)^2)}
+    \pgfmathparse{(#6-#3)/sqrt((#5-#2)^2 + (#6-#3)^2)}
         \edef\y{\pgfmathresult}
     \draw
-        (#1,#2,{(#3)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) ++(-0.2*\x,-0.2*\y,0) 
+        (#2,#3,{(#4)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) ++(-0.2*\x,-0.2*\y,0) 
             coordinate (A)
-        (#1,#2,{(#3)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) 
+        (#2,#3,{(#4)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) 
             coordinate (B)
-        (#4,#5,{(#6)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) 
+        (#5,#6,{(#7)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) 
             coordinate (C)
-        (#4,#5,{(#6)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) ++(0.2*\x,0.2*\y,0) 
+        (#5,#6,{(#7)*\zscale}) ++(-0.1*\y, 0.1*\x, 0) ++(0.2*\x,0.2*\y,0) 
             coordinate (D)
     ;
     \foreach \node/\nodetwo in {A/A2,B/B2,C/C2,D/D2}
-        \draw (\node) -- ++(0.2*\y, -0.2*\x, 0) coordinate(\nodetwo);
-    \draw (A) -- (B) -- (C) -- (D) (A2) -- (B2) -- (C2) -- (D2);
+        \draw[#1] (\node) -- ++(0.2*\y, -0.2*\x, 0) coordinate(\nodetwo);
+    \draw[#1] (A) -- (B) -- (C) -- (D) (A2) -- (B2) -- (C2) -- (D2);
 }
 
 \begin{document}
@@ -66,5 +66,11 @@
     \stairs{-0.1}{-1.2}{\level+-0.5}{-0.1}{-1.6}{\level+0}
     \stairs{-0.2}{-1.9}{\level+0}{-0.6}{-1.9}{\level+0.5}
 }
+
+%% Bookshelf Footprint
+\stairs[thick,blue]{-0.3}{-0.4}{0}{-0.3}{-0.8}{0.5}
+\stairs[thick,blue]{-0.3}{-1.2}{0.5}{-0.3}{-1.6}{1}
+\draw[thick,blue] (-0.4,0,0) -- (-0.2,0,0) -- (-0.2,0.8,0) -- (-0.4,0.8,0) --cycle;
+\draw[thick,blue] (-0.4,1,0) -- (-0.2,1,0) -- (-0.2,1.8,0) -- (-0.4,1.8,0) --cycle;
 \end{tikzpicture}
 \end{document}
