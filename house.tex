@@ -1,6 +1,6 @@
 \documentclass[tikz]{standalone}
 \usepackage{tikz-3dplot}
-\tdplotsetmaincoords{75.5}{125} \def\zscale{2.2}
+\tdplotsetmaincoords{75.5}{125+180} \def\zscale{2.2}
 
 \newcommand\stairs[7][]{
     \pgfmathparse{(#5-#2)/sqrt((#5-#2)^2 + (#6-#3)^2)}
@@ -24,6 +24,7 @@
 
 \begin{document}
 \begin{tikzpicture}[tdplot_main_coords]
+\draw (2,-1.5,2*\zscale) node {\sf UP};
 
 %% Basement (Floor -1)
 %% and Floor 0
@@ -67,10 +68,61 @@
     \stairs{-0.2}{-1.9}{\level+0}{-0.6}{-1.9}{\level+0.5}
 }
 
+%% Small hallway
+\draw (-0.2,-0.8,-0.5*\zscale) -- (-0.6,-0.8,-0.5*\zscale);
+
 %% Bookshelf Footprint
 \stairs[thick,blue]{-0.3}{-0.4}{0}{-0.3}{-0.8}{0.5}
 \stairs[thick,blue]{-0.3}{-1.2}{0.5}{-0.3}{-1.6}{1}
 \draw[thick,blue] (-0.4,0,0) -- (-0.2,0,0) -- (-0.2,0.8,0) -- (-0.4,0.8,0) --cycle;
 \draw[thick,blue] (-0.4,1,0) -- (-0.2,1,0) -- (-0.2,1.8,0) -- (-0.4,1.8,0) --cycle;
+\draw[thick,blue] (-0.4,-1.6,2*\zscale) -- (-0.2,-1.6,2*\zscale) -- (-0.2,1.8,2*\zscale) -- (-0.4,1.8,2*\zscale) -- cycle;
 \end{tikzpicture}
+
+
+%%%%%%%%%%%%%%%
+%% Simpler design
+%%%%%%%%%%%%%%%
+\begin{tikzpicture}[tdplot_main_coords]
+\draw (2,-1.5,2*\zscale) node {\sf UP};
+
+%% Floor -1, 0
+\foreach \level in {-1*\zscale, 0*\zscale}
+    \draw
+    (-0.4,-2,\level) -- (2,-2,\level) -- (2,2,\level) -- (-2,2,\level) -- 
+    (-2,-1,\level) -- (-1,-1,\level) -- (-1,-0.4,\level) -- (-0.4,-0.4,\level) -- cycle
+;
+
+%% Floor 1
+\draw
+    (-2,-1,1*\zscale) -- (-1,-1,1*\zscale) -- (-1,-0.2,1*\zscale) -- 
+    (-0.6,-0.2,1*\zscale) -- (-0.6,2,1*\zscale) -- (-2,2,1*\zscale) -- cycle;
+
+%% Floor 2
+\draw
+    (-2,-1,2*\zscale) -- (-1,-1,2*\zscale) -- (-1,-0.2,2*\zscale) --
+    (2,-0.2,2*\zscale) -- (2,2,2*\zscale) -- (-2,2,2*\zscale) -- cycle;
+
+%% Floor -0.5, +0.5, +1.5; Stairs
+\foreach \level in {-0.5,0.5,1.5}{
+    \draw
+        (-2,-2,\level*\zscale)
+         -- (-0.6,-2,\level*\zscale) -- (-0.6,-1,\level*\zscale) -- (-2,-1,\level*\zscale) -- cycle
+    ;
+    \foreach \bedroom in {-0.8,1.2}{
+        \stairs{-0.7}{\bedroom}{\level}{-0.7}{\bedroom+0.4}{\level-0.5}
+        \stairs{-0.9}{\bedroom}{\level}{-0.9}{\bedroom+0.4}{\level+0.5}
+    }
+}
+\foreach \level in {2} %0,1,2
+\draw (-0.6,2,\level*\zscale) --  (-1,2,\level*\zscale) --  (-1,1,\level*\zscale) --  (-0.6,1,\level*\zscale) -- cycle;
+
+\stairs{-0.5}{-0.4}{0}{-0.5}{-0.8}{0.5}
+\stairs{-0.5}{-1}{0.5}{-0.5}{-1.3}{1}
+\stairs{-0.5}{-1.5	}{1}{-0.5}{-1.8}{1.5}
+
+%% Bookshelf Footprint
+\draw[thick,blue, fill,opacity=0.15] (-0.4,-2,0) -- (-0.4,2,0) -- (-0.4,2,2*\zscale) -- (-0.4,-2,2*\zscale) --cycle;
+\end{tikzpicture}
+
 \end{document}
