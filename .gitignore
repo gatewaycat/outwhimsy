@@ -1,3 +1,5 @@
+iat.pkl
+
 # Exclude html files used for printing hard copies of jupyter labs
 *.html
 
